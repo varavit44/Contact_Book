@@ -99,3 +99,53 @@ listbox.config(yscrollcommand=scroller.set)
 listbox.place(relx=0.1, rely=0.15)
 
 list_contacts()
+
+#Defining the functions
+def submit_record():
+    global name_strvar, email_strvar, phone_strvar, address_entry
+    global cursor
+    name, email, phone, address = name_strvar.get(), email_strvar.get(),phone_strvar.get(), address_entry.get(1.0, END)
+    
+    if name=='' or email=='' or phone=='' or address=='':
+        mb.showerror('Error!', "Please fill all the fields")
+    else:
+        cursor.execute(
+            "INSERT INTO CONTACT_BOOK (NAME, EMAIL, PHONE_NUMBER, ADDRESS) VALUES (?,?,?,?)", 
+            (name, email, phone, address))
+        connector.commit()
+        mb.showinfo('Contact added', 'We have stored the contact successfully!')
+        listbox.delete(0, END)
+        list_contacts()
+        clear_field()
+
+def list_contacts():
+    curr = connector.execute('SELECT NAME FROM CONTACT_BOOK')
+    fetch = curr.fetchall()
+
+    for data in fetch:
+        listbox.insert(END, data)
+
+def delete_record():
+    global listbox, connector, cursor
+    
+    if not listbox.get(ACTIVE):
+        mb.showerror("No item selected", "You have not selected any item!")
+
+    cursor.execute('DELETE FROM CONTACT_BOOK WHERE NAME=?', (listbox.get(ACTIVE)))
+    connector.commit()
+
+    mb.showinfo('Contact deleted', 'The desired contact has been deleted')
+    listbox.delete(0, END)
+    list_contacts()
+
+def view_record():
+    global name_strvar, phone_strvar, email_strvar, address_entry, listbox
+
+    curr = cursor.execute('SELECT * FROM CONTACT_BOOK WHWRE NAME=?',
+                          listbox.get(ACTIVE))
+    values = curr.fetchall()[0]
+
+    name_strvar.set(values[1]); phone_strvar.set(values[3]); email_strvar.set(values[2])
+
+    address_entry.delete(1.0, END)
+    address_entry.insert(END, values[4])
