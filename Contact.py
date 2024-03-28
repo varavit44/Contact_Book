@@ -110,7 +110,7 @@ def search():
         for data in check:
             listbox.insert(END, data[1])
 
-def refesh():
+def refresh():
     listbox.delete(0, END)
     list_contacts()
     temp_text()
@@ -191,7 +191,7 @@ Button(center_frame, text='View Record', font=frame_font, width=15,command=view_
 Button(center_frame, text='Clear Fields', font=frame_font, width=15,command=clear_fields).place(relx=0.09, rely=0.48)
 Button(center_frame, text='Delete Record', font=frame_font, width=15,command=delete_record).place(relx=0.09, rely=0.60)
 Button(center_frame, text='Delete All Record', font=frame_font, width=15,command=delete_all_record).place(relx=0.09, rely=0.72)
-Button(center_frame, text='Refesh', font=frame_font, width=15,command=refesh).place(relx=0.09, rely=0.84)
+Button(center_frame, text='Refresh', font=frame_font, width=15,command=refresh).place(relx=0.09, rely=0.84)
 
 #Placing components in the right frame
 Label(right_frame, text='Saved Contacts', font=("Noto Sans CJK TC", 14), bg=rf_bg).place(relx=0.25, rely=0.05)
