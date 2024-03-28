@@ -32,3 +32,14 @@ email_strvar = StringVar()
 Label(root, text='CONTACT BOOK', font=("Noto Sans CJK TC", 15, "bold"),
 bg = 'Black', fg = 'White').pack(side=TOP, fill=X)
 
+#Frame on the left
+left_frame = Frame(root, bg=lf_bg)
+left_frame.place(relx=0, relheight=1, y=30, relwidth=0.3)
+
+#Frame on the center
+center_frame = Frame(root, bg=cf_bg)
+center_frame.place(relx=0.3, relheight=1, y=30, relwidth=0.3)
+
+#Frame on the right
+right_frame = Frame(root, bg=rf_bg)
+center_frame.place(relx=0.6, relheight=1, y=30, relwidth=0.4)
